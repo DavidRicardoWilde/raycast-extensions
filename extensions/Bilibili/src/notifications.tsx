@@ -14,7 +14,10 @@ function doNotify(title: string, type: Bilibili.DynamicType, subtitle: string, l
 
   if (process.platform === "win32") {
     try {
-      const escapePowershellString = (str: string) => str.replace(/["'`$]/g, "`$&");
+      const escapePowershellString = (str: string) =>
+        str
+          .replace(/["'`$]/g, "`$&")
+          .replace(/[\r\n]+/g, " ");
       const logoPath = path.resolve(__dirname, "../assets/bilibili.png");
       runPowerShellScript(`
         $button = New-BTButton -Content "Open in Browser" -Arguments "${formatUrl(link)}"

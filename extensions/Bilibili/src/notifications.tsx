@@ -26,6 +26,7 @@ function doNotify(title: string, type: Bilibili.DynamicType, subtitle: string, l
     } catch (error) {
       console.error("Failed to send notification on Windows:", error);
     }
+    return;
   }
 
   // Darwin (macOS)

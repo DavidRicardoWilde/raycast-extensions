@@ -1,6 +1,6 @@
 # Bilibili Changelog
 
-## [Windows support] -{PR_MERGE_DATE}
+## [Windows support] -2026-01-23
 
 - Support Windows platform
 

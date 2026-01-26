@@ -1,6 +1,5 @@
 import { HotItem } from "./types";
 import { safeFetch } from "./utils";
-import { writeFileSync } from "fs";
 
 export const fetchXTrending = async (): Promise<HotItem[]> => {
   const url = "https://trends24.in/";
@@ -21,8 +20,6 @@ export const fetchXTrending = async (): Promise<HotItem[]> => {
       "Cache-Control": "max-age=0",
     },
   });
-
-  writeFileSync("E:/raycast-extension/hotflow/src/sources/x_trends.log", html);
 
   const s = html.includes(`<ol class=trend-card__list>`);
   if (!s) {

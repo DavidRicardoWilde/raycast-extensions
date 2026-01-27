@@ -19,12 +19,11 @@ interface PHGraphQLResponse {
       edges: PHPostEdge[];
     };
   };
-  errors?: { message: string }[]; // 处理 API 返回的错误信息
+  errors?: { message: string }[];
 }
 
 export const fetchProductHuntWithKey = async (): Promise<HotItem[]> => {
-  const preferences = getPreferenceValues();
-  const token = preferences.phApiKey;
+  const { phApiKey: token } = getPreferenceValues<Preferences>();
 
   if (!token) {
     throw new Error("Please configure your Product Hunt API Key");

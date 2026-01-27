@@ -1,7 +1,7 @@
 import { HotItem } from "./types";
 import { safeFetch } from "./utils";
 
-interface GitHubTreadingRes {
+interface GitHubTrendingRes {
   title: string;
   description: string;
   link: string;
@@ -18,7 +18,7 @@ interface GitHubTreadingRes {
 export const fetchGithubTrendingRepos = async (): Promise<HotItem[]> => {
   const url = "https://raw.githubusercontent.com/isboyjc/github-trending-api/main/data/daily/all.json";
 
-  const response = await safeFetch<GitHubTreadingRes>(url);
+  const response = await safeFetch<GitHubTrendingRes>(url);
 
   if (!response || !response.items || response.items.length === 0) {
     throw new Error("Failed to fetch GitHub trending repositories");

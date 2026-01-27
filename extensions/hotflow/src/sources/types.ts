@@ -4,7 +4,6 @@ export enum Source {
   HackerNews = "hackernews",
   ProductHunt = "producthunt",
   X = "x",
-  YouTube = "youtube",
 }
 
 export interface HotItem {

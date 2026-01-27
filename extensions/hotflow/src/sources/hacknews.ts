@@ -30,7 +30,6 @@ export const fetchHackerNews = async (): Promise<HotItem[]> => {
       id: item.objectID,
       title: item.title,
       url: displayUrl,
-      //   hotValue: `👍 ${item.points}`,
       info: `${item.author} · ${item.num_comments} comments`,
     };
   });

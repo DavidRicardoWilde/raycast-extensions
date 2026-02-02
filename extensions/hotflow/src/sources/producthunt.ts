@@ -1,5 +1,6 @@
 import { HotItem } from "./types";
 import { getPreferenceValues } from "@raycast/api";
+import { safeFetch } from "./utils";
 
 interface PHPostNode {
   id: string;
@@ -23,7 +24,7 @@ interface PHGraphQLResponse {
 }
 
 export const fetchProductHuntWithKey = async (): Promise<HotItem[]> => {
-  const { phApiKey: token } = getPreferenceValues<Preferences>();
+  const { phApiKey: token } = getPreferenceValues();
 
   if (!token) {
     throw new Error("Please configure your Product Hunt API Key");
@@ -45,7 +46,7 @@ export const fetchProductHuntWithKey = async (): Promise<HotItem[]> => {
     }
   `;
 
-  const response = await fetch("https://api.producthunt.com/v2/api/graphql", {
+  const json = await safeFetch<PHGraphQLResponse>("https://api.producthunt.com/v2/api/graphql", {
     method: "POST",
     headers: {
       Authorization: `Bearer ${token}`,
@@ -55,10 +56,8 @@ export const fetchProductHuntWithKey = async (): Promise<HotItem[]> => {
     body: JSON.stringify({ query }),
   });
 
-  const json = (await response.json()) as PHGraphQLResponse;
-
-  if (json.errors) {
-    throw new Error(json.errors[0].message);
+  if (!json || json.errors) {
+    throw new Error(json?.errors?.[0]?.message ?? "Failed to fetch Product Hunt posts");
   }
 
   return json.data.posts.edges.map(({ node }: PHPostEdge) => ({

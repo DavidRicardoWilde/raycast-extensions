@@ -5,7 +5,7 @@ import { usePromise } from "@raycast/utils";
 import { fetchBySource } from "./sources/apis";
 
 export default function Command() {
-  const [source, setSource] = useState<Source>(Source.BiliBili);
+  const [source, setSource] = useState<Source>(Source.GitHub);
   const { isLoading, data, revalidate } = usePromise(fetchBySource, [source], {
     onError: (error) => {
       const toastOptions: Toast.Options = {
@@ -52,7 +52,7 @@ export default function Command() {
       searchBarAccessory={
         <List.Dropdown
           tooltip="Select one source"
-          defaultValue={Source.BiliBili}
+          defaultValue={Source.GitHub}
           storeValue={true}
           onChange={(newValue) => setSource(newValue as Source)}
         >
@@ -90,13 +90,13 @@ export default function Command() {
 function getIcon(source: string) {
   switch (source) {
     case Source.BiliBili:
-      return { source: "bilibili.svg", tintColor: "#00A1D6" };
+      return "bilibili.svg";
     case Source.GitHub:
       return { source: "github.svg", tintColor: "#000000" };
     case Source.HackerNews:
-      return { source: "hacker-new.svg", tintColor: "#FF6600" };
+      return { source: "hacker-news.svg", tintColor: "#FF6600" };
     case Source.ProductHunt:
-      return { source: "producthunt.svg", tintColor: "#DA552F" };
+      return { source: "product-hunt.svg", tintColor: "#DA552F" };
     case Source.X:
       return { source: "x.svg", tintColor: "#1DA1F2" };
     default:
